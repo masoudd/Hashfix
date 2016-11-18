@@ -1,0 +1,6 @@
+hashfix
+hashlist
+*.o
+
+#vim swap files
+*.swp
