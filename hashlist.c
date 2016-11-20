@@ -7,7 +7,7 @@
 #include <nettle/md5.h>
 
 
-static int chunk_len = 1024 * 1024; // 1MiB
+static const int chunk_len = 1024 * 1024; // 1MiB
 
 static void to_hex (int len, uint8_t *data, char *str) {
     for (int i = 0; i < len; i++)
