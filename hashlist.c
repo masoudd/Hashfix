@@ -6,15 +6,10 @@
 
 #include <nettle/md5.h>
 
+#include "common.h"
+
 
 static const int chunk_len = 1024 * 1024; // 1MiB
-
-static void to_hex (int len, uint8_t *data, char *str) {
-    for (int i = 0; i < len; i++)
-        sprintf(str + 2 * i, "%02x", data[i]);
-
-    str[2 * len] = '\0';
-}
 
 int main (int argc, char *argv[]) {
 
