@@ -25,7 +25,16 @@ int main (int argc, char *argv[]) {
         return 1;
 
     FILE *file = fopen(argv[1], "r+");
+    if (!file) {
+        perror(NULL);
+        exit(1);
+    }
+
     FILE *hashlist = fopen(argv[2], "r");
+    if (!hashlist) {
+        perror(NULL);
+        exit(1);
+    }
 
     struct md5_ctx ctx;
     md5_init(&ctx);
