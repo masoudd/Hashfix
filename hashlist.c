@@ -29,6 +29,10 @@ int main (int argc, char *argv[]) {
         exit(1);
     }
 
+    /* first line is size of each chunk and size of the whole file */
+    long size = fsize(file);
+    fprintf(hashlist, "%d %ld\n", chunk_len, size);
+
     struct md5_ctx ctx;
     md5_init(&ctx);
     char hex[MD5_DIGEST_SIZE * 2 + 1];

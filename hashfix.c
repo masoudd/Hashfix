@@ -11,6 +11,7 @@
 
 #include "common.h"
 
+static int chunk_len;
 
 int main (int argc, char *argv[]) {
 
@@ -39,6 +40,14 @@ int main (int argc, char *argv[]) {
     char *line = NULL;
     size_t len = 0;
     ssize_t read;
+
+    long expected_size;
+    long current_size = fsize(file);
+    read = getline(&line, &len, hashlist);
+    sscanf(line, "%d %ld", &chunk_len, &expected_size);
+    if (expected_size != current_size) {
+        fprintf(stderr, "File size is wrong, it is %ld, it should be %ld bytes\n", current_size, expected_size);
+    }
 
     bool loop = true;
     unsigned int counter = 0;
