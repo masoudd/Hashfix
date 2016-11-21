@@ -3,11 +3,18 @@ cflags := -std=c99 -Wall -static
 
 all: hashlist hashfix
 
-hashfix: hashfix.c hashfix.h
-	gcc $(cflags)  hashfix.c $(libs) -o $@
+hashfix: hashfix.c hashfix.h common.c common.h
+	gcc $(cflags)  hashfix.c common.c $(libs) -o hashfix
 
-hashlist: hashlist.c
-	gcc $(cflags) $^ $(libs) -o $@
+hashlist: hashlist.c common.c common.h
+	gcc $(cflags) hashlist.c common.c $(libs) -o hashlist
+
+debug: hashlist.c common.c common.h hashfix.c
+	gcc $(cflags) -g hashlist.c common.c $(libs) -o hashlist_debug
+	gcc $(cflags) -g hashfix.c common.c $(libs) -o hashfix_debug
+
+clean:
+	rm hashfix hashlist *_debug
 
 
-.PHONY: all
+.PHONY: all debug clean
