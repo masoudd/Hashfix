@@ -30,11 +30,6 @@ int main (int argc, char *argv[]) {
         exit(1);
     }
 
-    struct md5_ctx ctx;
-    md5_init(&ctx);
-    char hex[MD5_DIGEST_SIZE * 2 + 1];
-    uint8_t digest[MD5_DIGEST_SIZE];
-    uint8_t *buffer = malloc(chunk_len);
 
 
     char *line = NULL;
@@ -44,10 +39,20 @@ int main (int argc, char *argv[]) {
     long expected_size;
     long current_size = fsize(file);
     read = getline(&line, &len, hashlist);
-    sscanf(line, "%d %ld", &chunk_len, &expected_size);
+    int matched = sscanf(line, "%d %ld ", &chunk_len, &expected_size);
+    if (matched != 2) {
+        fprintf(stderr, "Invalid first line in hash list: %s", argv[2]);
+        exit(1);
+    }
     if (expected_size != current_size) {
         fprintf(stderr, "File size is wrong, it is %ld, it should be %ld bytes\n", current_size, expected_size);
     }
+
+    struct md5_ctx ctx;
+    md5_init(&ctx);
+    char hex[MD5_DIGEST_SIZE * 2 + 1];
+    uint8_t digest[MD5_DIGEST_SIZE];
+    uint8_t *buffer = malloc(chunk_len);
 
     bool loop = true;
     unsigned int counter = 0;
