@@ -33,10 +33,19 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
 
-    FILE *hashlist = fopen(argv[2], "w");
-    if (!hashlist) {
-        perror(NULL);
-        exit(1);
+    FILE *hashlist;
+
+    errno = 0;
+    int r = access(argv[2], F_OK);
+    if (r == 0) {
+        fprintf(stderr, "%s already exists, will not overwrite it\n", argv[2]);
+        exit(EXIT_FAILURE);
+    } else if (r == -1 && errno == ENOENT) {
+        hashlist = fopen(argv[2], "w");
+        if (!hashlist) {
+            perror(NULL);
+            exit(1);
+        }
     }
 
     /* first line is size of each chunk and size of the whole file */
