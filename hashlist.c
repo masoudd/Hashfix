@@ -3,19 +3,29 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 #include <nettle/md5.h>
 
 #include "common.h"
 
+static char *name = "hashlist";
+
+void help(void) {
+    printf("Usage: %s FILE LIST\n", name);
+    printf("\tWill not overwrite LIST if it already exist\n");
+}
 
 static const int chunk_len = 1024 * 1024; // 1MiB
 
-int main (int argc, char *argv[]) {
+int main(int argc, char *argv[]) {
+    name = argv[0];
 
     if (argc != 3) {
+        help();
         return 1;
     }
+
 
     FILE *file = fopen(argv[1], "r");
     if (!file) {
