@@ -1,5 +1,5 @@
-libs := -lnettle
-cflags := -std=c99 -Wall -static
+libs := -lnettle -lcurl
+cflags := -std=c99 -Wall
 
 all: hashlist hashfix
 
