@@ -46,6 +46,10 @@ int main(int argc, char *argv[]) {
             perror(NULL);
             exit(1);
         }
+    } else {
+        perror(NULL);
+        fprintf(stderr, "checking %s encountered an error:\n", argv[2]);
+        exit(EXIT_FAILURE);
     }
 
     /* first line is size of each chunk and size of the whole file */
