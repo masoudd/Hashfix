@@ -20,10 +20,20 @@
 static int chunk_len;
 static char *url;
 
+static char *name = "hashfix";
+
+void help(void) {
+    printf("Usage: %s FILE LIST URL\n", name);
+}
+
 int main (int argc, char *argv[]) {
 
-    if (argc != 4)
+    name = argv[0];
+
+    if (argc != 4) {
+        help();
         return 1;
+    }
 
     FILE *file = fopen(argv[1], "r+");
     if (!file) {
