@@ -10,7 +10,7 @@
 #include <curl/curl.h>
 #include "net.h"
 
-bool debug = false;
+bool debug = true;
 
 struct writedata {
     uint8_t *data;
@@ -55,6 +55,8 @@ uint8_t *download_chunk(uint32_t start, uint32_t end, char *url) {
     CURL *handle = curl_easy_init();
 
     curl_easy_setopt(handle, CURLOPT_URL, url);
+    curl_easy_setopt(handle, CURLOPT_FOLLOWLOCATION, 1L);
+    curl_easy_setopt(handle, CURLOPT_MAXREDIRS, 10L);
 
     char tmp[40];
     struct curl_slist *slist = NULL;

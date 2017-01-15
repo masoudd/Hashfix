@@ -48,6 +48,10 @@ int main (int argc, char *argv[]) {
     }
 
     url = argv[3];
+    if (!supports_resume(url)) {
+        fprintf(stderr, "The given URL does not support resume\n");
+        exit(EXIT_FAILURE);
+    }
 
 
 
