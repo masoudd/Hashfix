@@ -10,7 +10,7 @@
 #include <curl/curl.h>
 #include "net.h"
 
-bool debug = true;
+bool debug = false;
 
 struct writedata {
     uint8_t *data;
