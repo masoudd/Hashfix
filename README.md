@@ -1,7 +1,9 @@
 Hashfix
 =======
 
-This program checks a file against a hash list and reports non matching parts.
+This program takes a file, a hashlist and a url.
+
+Checks the file against the hashlist and if a chunk of the file does not match the hash in the hashlist, it downloads that chunk from the url and writes it in the file.
 
 
 Hashlist
